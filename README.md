@@ -29,7 +29,7 @@ style="margin-bottom:-10px; display:block;" />
 
 ## 🔥 News
 - **[Oct 2026]** 🚀 Code, subject-level splits and the four PRIMED checkpoints are released.
-- 📄 The paper is accepted at **WACV 2027** (Applications track).
+- 📄 The paper is accepted at **WACV 2027**.
 
 ## Overview
 Official code for **PRIMED** (**PR**ior-**I**nformed **M**issing-modality synthesis by **E**ndpoint **D**isplacement).
@@ -157,7 +157,7 @@ How much of each target the inputs determine varies by contrast and region. The 
 ## ⛏️ Installation
 
 ```bash
-git clone https://github.com/adinathdukre/PRIMED.git
+git clone https://github.com/genmilab/PRIMED.git
 cd PRIMED
 conda create -n primed python=3.10 -y && conda activate primed
 pip install -e .
@@ -362,7 +362,7 @@ PRIMED/
 The network is MONAI's `DiffusionModelUNet` ([MONAI](https://github.com/Project-MONAI/MONAI), Apache 2.0). The models were trained on the [BraTS 2023](https://www.synapse.org/Synapse:syn51156910/wiki/621282) and [IXI](https://brain-development.org/ixi-dataset/) data; we thank the BraTS organisers, the IXI team and the data contributors. Please also cite the BraTS challenge papers when using the BraTS data.
 
 ## 📨 Contact
-For questions or collaboration, please open an [issue](https://github.com/adinathdukre/PRIMED/issues) or reach out to [Adinath Madhavrao Dukre](https://github.com/adinathdukre).
+For questions or collaboration, please open an [issue](https://github.com/genmilab/PRIMED/issues) or reach out to [Adinath Madhavrao Dukre](https://github.com/adinathdukre).
 
 ## 📜 License
 

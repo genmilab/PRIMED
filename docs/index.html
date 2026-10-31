@@ -4,11 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>When Iteration Cannot Help: Single-Pass Missing-Modality MRI Synthesis and What Actually Limits It</title>
-<meta name="description" content="Official code for PRIMED (PRior-Informed Missing-modality synthesis by Endpoint Displacement)." />
+<meta name="description" content="Missing-modality MRI synthesis predicts an unavailable contrast from the remaining acquisitions, for which diffusion-based approaches often require hundreds or thousands of network evaluations per volume. We investigate when such iterative refinement can help in informed-prior bridges and show that," />
 <meta name="theme-color" content="#147b82" />
 <meta property="og:title" content="When Iteration Cannot Help: Single-Pass Missing-Modality MRI Synthesis and What Actually Limits It" />
-<meta property="og:description" content="Official code for PRIMED (PRior-Informed Missing-modality synthesis by Endpoint Displacement)." />
+<meta property="og:description" content="Missing-modality MRI synthesis predicts an unavailable contrast from the remaining acquisitions, for which diffusion-based approaches often require hundreds or thousands of network evaluations per volume. We investigate when such iterative refinement can help in informed-prior bridges and show that," />
 <meta property="og:type" content="website" />
+<meta property="og:image" content="assets/paper/fig1.png" />
 <meta name="citation_title" content="When Iteration Cannot Help: Single-Pass Missing-Modality MRI Synthesis and What Actually Limits It" />
 <link rel="icon" href="https://raw.githubusercontent.com/genmilab/VGS-Decoding/main/docs/assets/genmilab-logo.png" />
 <link rel="stylesheet" href="project.css" />
@@ -21,7 +22,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><div class="nav-wrap">
 <a class="brand" href="#top">PRIMED</a>
-<nav aria-label="Main navigation"><a href="#-method">Method</a><a href="#-results">Results</a><a href="#️-installation">Installation</a><a href="#-pretrained-weights">Weights</a><a href="#-inference">Inference</a></nav>
+<nav aria-label="Main navigation"><a href="#abstract">Abstract</a><a href="#method">Method</a><a href="#results">Results</a><a href="#code">Code</a></nav>
 <a class="nav-code" href="https://github.com/genmilab/PRIMED">GitHub <span aria-hidden="true">↗</span></a>
 </div></header>
 <main id="main">
@@ -35,41 +36,21 @@
 <div class="affiliations" aria-label="Author affiliations"><span><sup>1</sup>Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, UAE</span><span><sup>2</sup>National Institute of Technology Karnataka, Surathkal, India</span></div>
 <p class="equal-contribution"><sup>&#42;</sup>Equal first authors</p>
 <p class="hero-description">Synthesise any missing MRI contrast from the others.<br />One network evaluation per volume.<br />28.56 dB on BraTS-GLI in 0.15 s.</p>
-<div class="resource-links"><a class="button button-primary" href="https://github.com/genmilab/PRIMED"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/></svg>Code</a><a class="button button-secondary" href="https://huggingface.co/adidukre/PRIMED"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg>Weights <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#-results">Results <span aria-hidden="true">↓</span></a></div>
+<div class="resource-links"><a class="button button-primary" href="https://github.com/genmilab/PRIMED"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-12-2 14"/></svg>Code</a><a class="button button-secondary" href="https://huggingface.co/adidukre/PRIMED"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg>Weights <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#results">Results <span aria-hidden="true">↓</span></a></div>
 <div class="hero-meta"><span>WACV 2027</span></div>
 </section>
-<section class="section container narrow page-section" id="-news"><p class="section-kicker">01 / NEWS</p><h2>News</h2>
-<ul>
-<li><strong>[Oct 2026]</strong> 🚀 Code, subject-level splits and the four PRIMED checkpoints are released.</li>
-<li>📄 The paper is accepted at <strong>WACV 2027</strong>.</li>
-</ul>
-</section>
-<section class="section container narrow page-section" id="overview"><p class="section-kicker">02 / OVERVIEW</p><h2>Overview</h2>
-<p>Official code for <strong>PRIMED</strong> (<strong>PR</strong>ior-<strong>I</strong>nformed <strong>M</strong>issing-modality synthesis by <strong>E</strong>ndpoint <strong>D</strong>isplacement).</p>
-<ul>
-<li><strong>Task.</strong> Multi-parametric brain MRI often misses one contrast. PRIMED predicts it from the contrasts that were acquired: any of T1, T1c, T2 and FLAIR from the other three, with one set of weights.</li>
-<li><strong>Idea.</strong> If a sampler starts from a prior computed from the acquired contrasts, every state it visits is again a function of those contrasts. Further network evaluations can reduce integration error, but they cannot add information about the missing contrast.</li>
-<li><strong>Method.</strong> PRIMED is trained only at that source state and evaluated once, with no noise schedule and no solver.</li>
-<li><strong>Result.</strong> 28.56 dB PSNR and 0.944 SSIM in 0.152 s per volume on 216 held-out BraTS 2023 glioma subjects.</li>
-</ul>
-<p align="center">
-<img src="https://raw.githubusercontent.com/genmilab/PRIMED/main/assets/pipeline.png" alt="PRIMED pipeline" width="100%"/>
-<br/>
-<em><b>Fig. 1.</b> The three acquired contrasts are mapped by a fixed Haar transform W and averaged into the informed prior g(c). One pass of v<sub>θ</sub>, conditioned on the target contrast, returns the displacement D̂; subtracting it before inverting W gives the volume. Top: the path from s = 1 to s = 0; PRIMED evaluates the network only at the source, s = 1.</em>
-</p>
-</section>
-<section class="section container narrow page-section" id="-method"><p class="section-kicker">03 / METHOD</p><h2>Method</h2>
-<ol>
+<section class="section abstract-section" id="abstract"><div class="container narrow"><p class="section-kicker">01 / ABSTRACT</p><h2>Abstract</h2><div class="abstract-text"><p>Missing-modality MRI synthesis predicts an unavailable contrast from the remaining acquisitions, for which diffusion-based approaches often require hundreds or thousands of network evaluations per volume. We investigate when such iterative refinement can help in informed-prior bridges and show that, when the source state is a deterministic function of the conditioning, subsequent states cannot provide additional target information. However, stochastic training states expose the network to information unavailable during inference, creating a mismatch between training and deployment. To address this, we introduce PRIMED, a single-pass displacement regression framework that trains exclusively at the source endpoint and synthesises the missing contrast with one network evaluation. A single shared network handles all four target contrasts using a fixed 3D Haar wavelet representation. On BraTS-GLI, PRIMED achieves 28.56 dB PSNR and 0.944 SSIM in 0.152 s per volume, exceeding its two-evaluation bridge by 0.596 dB at half the runtime and achieving higher PSNR than thousand-step cWDM at comparable SSIM, with a <span class="math inline">1{,}053\times</span> speedup. Its effectiveness is further validated on unseen BraTS cohorts and a separately trained IXI setting. Beyond synthesis performance, we investigate the information limits of missing-modality reconstruction, finding that recoverability varies nearly fourfold across target contrasts and anatomical regions. Code is available at <a href="https://github.com/genmilab/PRIMED" class="uri">https://github.com/genmilab/PRIMED</a>.</p></div></div></section>
+<section class="figure-section container" id="overview-figure"><figure class="overview-figure"><img src="assets/paper/fig1.png" alt="Figure 1" loading="lazy" /><figcaption><strong>Figure 1.</strong> <strong>Pipeline overview.</strong> The three acquired contrasts are mapped by a fixed Haar transform <span class="math inline">W</span> and averaged into the informed prior <span class="math inline">g(c)</span>. One pass of <span class="math inline">v_\theta</span>, conditioned on an embedding of the target contrast, returns the displacement <span class="math inline">\hat{D}</span>, and subtracting it before inverting <span class="math inline">W</span> gives the volume. <strong>Top</strong>: the full bridge path from <span class="math inline">s=1</span> to <span class="math inline">s=0</span>; PRIMED evaluates the network only at the source endpoint, <span class="math inline">s=1</span>. <a href="assets/paper/fig_pipeline.pdf">Full-resolution PDF <span aria-hidden="true">↗</span></a></figcaption></figure></section>
+<section class="section container narrow page-section" id="method"><p class="section-kicker">02 / METHOD</p><h2>Method</h2><ol>
 <li><strong>Representation.</strong> A fixed, lossless one-level 3D Haar transform W maps each 224 × 224 × 160 volume to eight subbands of 112 × 112 × 80. The low-pass band is divided by 3.</li>
 <li><strong>Informed prior.</strong> g(c) is the mean of the encoded acquired contrasts. It depends on the inputs alone, so the network can compute it exactly.</li>
 <li><strong>Network.</strong> v<sub>θ</sub> is a five-level 3D U-Net (MONAI <code>DiffusionModelUNet</code>, 97.7M parameters), convolutional except for one self-attention block in its bottleneck. Its 48 input channels are g(c) twice, a learned 8-channel embedding of the target contrast and the three encoded acquired contrasts.</li>
 <li><strong>Training.</strong> Mean squared error on the displacement D = g(c) − W y at the source state s = 1. No noise is injected.</li>
 <li><strong>Inference.</strong> One network evaluation followed by the inverse transform:</li>
 </ol>
-<p>$$\hat{y} = W^{-1}\big(g(c) - v_\theta(g(c), 1, c)\big), \qquad g(c) = \tfrac{1}{3}\textstyle\sum_{m} W c_m .$$</p>
-</section>
-<section class="section container narrow page-section" id="-results"><p class="section-kicker">04 / RESULTS</p><h2>Results</h2>
-<p>Whole-volume PSNR (dB) per target contrast and SSIM on the 216 held-out BraTS 2023 GLI subjects (864 cases), with one network for all four targets, as reported in the paper:</p>
+<p>$$\hat{y} = W^{-1}\big(g(c) - v_\theta(g(c), 1, c)\big), \qquad g(c) = \tfrac{1}{3}\textstyle\sum_{m} W c_m .$$</p></section>
+<section class="section container page-section results-wide" id="results"><div class="narrow"><p class="section-kicker">03 / RESULTS</p><h2>Results from the paper</h2><p class="section-intro">Tables and figures as they appear in the paper.</p></div><figure class="paper-table-figure"><figcaption><strong>Table 1.</strong> <strong>Whole-volume PSNR (dB) per target contrast and SSIM</strong>. Rows below the rule: <span class="math inline">216</span> held-out BraTS-GLI subjects (<span class="math inline">864</span> cases). NFE: network evaluations per volume; s/vol: runtime in seconds per volume; <em>Speedup</em> is relative to cWDM’s <span class="math inline">160</span> s/vol. <em>Bridge</em> is a control rather than a competing method, differing from PRIMED only in the training distribution over <span class="math inline">s</span>. Avg PSNR and SSIM are means over the four contrasts. <strong>Bold</strong> marks the best value in each quality column.</figcaption><img src="assets/paper/tab1.png" alt="Table 1" loading="lazy" style="width:min(100%,755px)" /></figure><figure class="paper-table-figure"><figcaption><strong>Table 2.</strong> <strong>Fidelity where the signal is.</strong> PSNR (dB) in the brain mask, whole tumour (WT), enhancing tumour (ET), necrotic core (NCR) and oedema (ED); the <span class="math inline">216</span> subjects of Table 1, <span class="math inline">864</span> cases for brain and WT and <span class="math inline">832</span>, <span class="math inline">776</span> and <span class="math inline">856</span> for ET, NCR and ED. <strong>Bold</strong>: the better arm for each region and contrast.</figcaption><img src="assets/paper/tab2.png" alt="Table 2" loading="lazy" style="width:min(100%,336px)" /></figure><figure class="paper-table-figure"><figcaption><strong>Table 3.</strong> <strong>Cross-cohort transfer.</strong> PSNR (dB) over <span class="math inline">n</span> subjects, whole-volume except the cWDM rows (brain mask), with subject-clustered <span class="math inline">95\%</span> CIs. NFE: PRIMED <span class="math inline">1</span>, Bridge <span class="math inline">2</span>, cWDM <span class="math inline">1000</span>. <em>MEN val.</em> is the disjoint meningioma validation release. All rows but MEN val. survive Benjamini–Hochberg control over the table.</figcaption><img src="assets/paper/tab3.png" alt="Table 3" loading="lazy" style="width:min(100%,353px)" /></figure><figure class="paper-figure"><img src="assets/paper/fig2.png" alt="Figure 2" loading="lazy" /><figcaption><strong>Figure 2.</strong> <strong>Held-out cases for the T1, T1c and FLAIR targets</strong>, one per row. Left of the solid rule the three acquired inputs, between the rules Bridge-S, the two-evaluation bridge and PRIMED, right of the dashed rule the acquired target. The red box marks the tumour region used to select each case and is positioned consistently across the panels of each row. <a href="assets/paper/fig_qual.pdf">Full-resolution PDF <span aria-hidden="true">↗</span></a></figcaption></figure><figure class="paper-figure"><img src="assets/paper/fig3.png" alt="Figure 3" loading="lazy" /><figcaption><strong>Figure 3.</strong> <strong>IXI, a different acquisition family</strong>, with PRIMED trained on it from scratch. One held-out case per row, for the T1 (top) and T2 (bottom) targets: the two acquired input contrasts, PRIMED’s output and the acquired target. <a href="assets/paper/fig_ixi.pdf">Full-resolution PDF <span aria-hidden="true">↗</span></a></figcaption></figure></section>
+<section class="section container narrow page-section" id="more-results"><p class="section-kicker">04 / MORE RESULTS</p><h2>More from the code release</h2><details><summary>Results</summary><p>Whole-volume PSNR (dB) per target contrast and SSIM on the 216 held-out BraTS 2023 GLI subjects (864 cases), with one network for all four targets, as reported in the paper:</p>
 <div align="center">
 <div class="table-scroll" tabindex="0"><table class="paper-table">
 <thead>
@@ -239,10 +220,7 @@
 </tr>
 </tbody>
 </table></div>
-</div>
-</section>
-<section class="section container narrow page-section" id="-qualitative-results"><p class="section-kicker">05 / QUALITATIVE RESULTS</p><h2>Qualitative Results</h2>
-<p align="center">
+</div></details><details><summary>Qualitative Results</summary><p align="center">
 <img src="https://raw.githubusercontent.com/genmilab/PRIMED/main/assets/qualitative.png" alt="Qualitative results on BraTS-GLI" width="85%"/>
 <br/>
 <em><b>Fig. 2.</b> Held-out BraTS-GLI cases for the T1, T1c and FLAIR targets, one per row: the three acquired inputs, PRIMED and the acquired target. The red square marks the tumour region each case was selected on.</em>
@@ -252,18 +230,13 @@
 <img src="https://raw.githubusercontent.com/genmilab/PRIMED/main/assets/qualitative_ixi.png" alt="Qualitative results on IXI" width="60%"/>
 <br/>
 <em><b>Fig. 3.</b> IXI, with PRIMED trained on it from scratch. One held-out case for each of two target contrasts: the two acquired inputs, PRIMED and the acquired target.</em>
-</p>
-</section>
-<section class="section container narrow page-section" id="️-installation"><p class="section-kicker">06 / INSTALLATION</p><h2>Installation</h2>
-<pre><code class="language-bash">git clone https://github.com/genmilab/PRIMED.git
+</p></details></section>
+<section class="section container narrow page-section" id="code"><p class="section-kicker">05 / CODE</p><h2>Code and usage</h2><details open><summary>Installation</summary><pre><code class="language-bash">git clone https://github.com/genmilab/PRIMED.git
 cd PRIMED
 conda create -n primed python=3.10 -y &amp;&amp; conda activate primed
 pip install -e .
 </code></pre>
-<p>The code needs Python 3.9 or later, PyTorch 2.1 or later, MONAI 1.4 or later and einops. It was tested with MONAI 1.4.0.</p>
-</section>
-<section class="section container narrow page-section" id="-pretrained-weights"><p class="section-kicker">07 / PRETRAINED WEIGHTS</p><h2>Pretrained Weights</h2>
-<p>Download the checkpoints from <a href="https://huggingface.co/adidukre/PRIMED">Hugging Face</a>:</p>
+<p>The code needs Python 3.9 or later, PyTorch 2.1 or later, MONAI 1.4 or later and einops. It was tested with MONAI 1.4.0.</p></details><details><summary>Pretrained Weights</summary><p>Download the checkpoints from <a href="https://huggingface.co/adidukre/PRIMED">Hugging Face</a>:</p>
 <pre><code class="language-bash">pip install -U huggingface_hub
 hf download adidukre/PRIMED --local-dir weights
 cd weights &amp;&amp; sha256sum -c SHA256SUMS
@@ -299,10 +272,7 @@ cd weights &amp;&amp; sha256sum -c SHA256SUMS
 </tr>
 </tbody>
 </table></div>
-<p>Each file holds the network weights only. The architecture is read from the weights, so no config is needed for inference.</p>
-</section>
-<section class="section container narrow page-section" id="️-data"><p class="section-kicker">08 / DATA</p><h2>Data</h2>
-<p><strong>BraTS.</strong> Download the BraTS 2023 adult glioma (GLI) training data from the <a href="https://www.synapse.org/Synapse:syn51156910/wiki/621282">challenge page</a> and keep its folder layout:</p>
+<p>Each file holds the network weights only. The architecture is read from the weights, so no config is needed for inference.</p></details><details><summary>Data</summary><p><strong>BraTS.</strong> Download the BraTS 2023 adult glioma (GLI) training data from the <a href="https://www.synapse.org/Synapse:syn51156910/wiki/621282">challenge page</a> and keep its folder layout:</p>
 <pre><code class="language-text">/path/to/ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData/
 └── BraTS-GLI-00000-000/
     ├── BraTS-GLI-00000-000-t1n.nii.gz
@@ -324,10 +294,7 @@ cd weights &amp;&amp; sha256sum -c SHA256SUMS
 ├── brats_men_val_141.txt    # BraTS-MEN validation release
 ├── brats_ped_99.txt         # BraTS-PED training release
 └── ixi.json                 # 477 train / 100 val; 4 val subjects select checkpoints, the other 96 are the test set
-</code></pre>
-</section>
-<section class="section container narrow page-section" id="-inference"><p class="section-kicker">09 / INFERENCE</p><h2>Inference</h2>
-<p>Synthesise a missing contrast from NIfTI files:</p>
+</code></pre></details><details><summary>Inference</summary><p>Synthesise a missing contrast from NIfTI files:</p>
 <pre><code class="language-bash">python synthesize.py \
   --weights weights/primed_brats.safetensors \
   --target t1c \
@@ -368,10 +335,7 @@ t1c = model.synthesize(inputs.mean(dim=1), inputs, torch.tensor([1], device=devi
 </code></pre>
 <p>The target class follows the contrast order T1n, T1c, T2w, T2f for BraTS and T1, T2, PD for IXI.</p>
 </details>
-<div class="callout callout-note"><strong>Note</strong><p>Inference needs about 5 GB of GPU memory. It also runs on the CPU (<code>--device cpu</code>), at about 25–30 s per volume with 16 threads.</p></div>
-</section>
-<section class="section container narrow page-section" id="-evaluation"><p class="section-kicker">10 / EVALUATION</p><h2>Evaluation</h2>
-<p>Score the 216 held-out BraTS-GLI subjects and print the per-target table:</p>
+<div class="callout callout-note"><strong>Note</strong><p>Inference needs about 5 GB of GPU memory. It also runs on the CPU (<code>--device cpu</code>), at about 25–30 s per volume with 16 threads.</p></div></details><details><summary>Evaluation</summary><p>Score the 216 held-out BraTS-GLI subjects and print the per-target table:</p>
 <pre><code class="language-bash">python evaluate.py \
   --config configs/brats_primed.yaml \
   --weights weights/primed_brats.safetensors \
@@ -418,10 +382,7 @@ t1c = model.synthesize(inputs.mean(dim=1), inputs, torch.tensor([1], device=devi
   --split all --data_root /path/to/BraTS-MEN-Train --subjects splits/brats_men_60.txt \
   --output results/primed_brats_men60.jsonl
 </code></pre>
-<p>For IXI, use <code>--config configs/ixi_primed.yaml</code> with <code>primed_ixi.safetensors</code>.</p>
-</section>
-<section class="section container narrow page-section" id="️-training"><p class="section-kicker">11 / TRAINING</p><h2>Training</h2>
-<p>Set <code>data_root</code>, <code>output_dir</code> and, where used, <code>init_weights</code> in the config, then run from the repository root:</p>
+<p>For IXI, use <code>--config configs/ixi_primed.yaml</code> with <code>primed_ixi.safetensors</code>.</p></details><details><summary>Training</summary><p>Set <code>data_root</code>, <code>output_dir</code> and, where used, <code>init_weights</code> in the config, then run from the repository root:</p>
 <pre><code class="language-bash">python train.py --config configs/brats_primed.yaml
 torchrun --nproc_per_node=4 train.py --config configs/brats_primed.yaml
 </code></pre>
@@ -496,15 +457,9 @@ torchrun --nproc_per_node=4 train.py --config configs/brats_primed.yaml
 </tbody>
 </table></div>
 <p>Training writes <code>best.safetensors</code> (best validation PSNR, raw or EMA weights), <code>last.pt</code> (state to resume from), and <code>final.safetensors</code> / <code>final_ema.safetensors</code> to <code>output_dir</code>. It needs about 38 GB of GPU memory per process at batch size 2.</p>
-<div class="callout callout-important"><strong>Important</strong><p><code>configs/brats_primed.yaml</code> fine-tunes for up to 20k steps from a network of the same architecture trained over the full interpolant path (Sec. 4.1 of the paper). That initialisation is not released, so <code>primed_brats</code> cannot be retrained exactly from this repository; it is that run's <code>best.safetensors</code>, raw weights at step 15k. For training from scratch, follow the longer schedule of <code>configs/ixi_primed.yaml</code>. The two fine-tunes are released with their final raw weights.</p></div>
-</section>
-<section class="section container narrow page-section" id="-tests"><p class="section-kicker">12 / TESTS</p><h2>Tests</h2>
-<pre><code class="language-bash">pip install -e &quot;.[test]&quot; &amp;&amp; python -m pytest -q
+<div class="callout callout-important"><strong>Important</strong><p><code>configs/brats_primed.yaml</code> fine-tunes for up to 20k steps from a network of the same architecture trained over the full interpolant path (Sec. 4.1 of the paper). That initialisation is not released, so <code>primed_brats</code> cannot be retrained exactly from this repository; it is that run's <code>best.safetensors</code>, raw weights at step 15k. For training from scratch, follow the longer schedule of <code>configs/ixi_primed.yaml</code>. The two fine-tunes are released with their final raw weights.</p></div></details><details><summary>Tests</summary><pre><code class="language-bash">pip install -e &quot;.[test]&quot; &amp;&amp; python -m pytest -q
 </code></pre>
-<p>The tests cover the Haar transform, the model and the data pipeline.</p>
-</section>
-<section class="section container narrow page-section" id="️-repository-structure"><p class="section-kicker">13 / REPOSITORY STRUCTURE</p><h2>Repository Structure</h2>
-<pre><code class="language-text">PRIMED/
+<p>The tests cover the Haar transform, the model and the data pipeline.</p></details><details><summary>Repository Structure</summary><pre><code class="language-text">PRIMED/
 ├── primed/
 │   ├── wavelet.py        # 3D Haar transform
 │   ├── network.py        # 3D U-Net with target-contrast conditioning
@@ -519,18 +474,11 @@ torchrun --nproc_per_node=4 train.py --config configs/brats_primed.yaml
 ├── splits/               # subject lists of every split and cohort in the paper
 ├── tests/                # unit tests (pytest)
 └── assets/               # README figures
-</code></pre>
-</section>
-<section class="section container narrow page-section" id="-acknowledgments"><p class="section-kicker">14 / ACKNOWLEDGMENTS</p><h2>Acknowledgments</h2>
-<p>The network is MONAI's <code>DiffusionModelUNet</code> (<a href="https://github.com/Project-MONAI/MONAI">MONAI</a>, Apache 2.0). The models were trained on the <a href="https://www.synapse.org/Synapse:syn51156910/wiki/621282">BraTS 2023</a> and <a href="https://brain-development.org/ixi-dataset/">IXI</a> data; we thank the BraTS organisers, the IXI team and the data contributors. Please also cite the BraTS challenge papers when using the BraTS data.</p>
-</section>
-<section class="section container narrow page-section" id="-contact"><p class="section-kicker">15 / CONTACT</p><h2>Contact</h2>
-<p>For questions or collaboration, please open an <a href="https://github.com/genmilab/PRIMED/issues">issue</a> or reach out to <a href="https://github.com/adinathdukre">Adinath Madhavrao Dukre</a>.</p>
-</section>
-<section class="section container narrow page-section" id="-license"><p class="section-kicker">16 / LICENSE</p><h2>License</h2>
-<p>The code and model weights are released under CC BY-NC 4.0 (<a href="https://github.com/genmilab/PRIMED/tree/main/LICENSE">LICENSE</a>), for non-commercial use.</p>
-<div class="callout callout-important"><strong>Important</strong><p>PRIMED is intended for research only. It is not validated for clinical use and must not inform any diagnostic or treatment decision.</p></div>
-</section>
+</code></pre></details></section>
+<section class="section container narrow page-section small-section" id="acknowledgments"><h3>Acknowledgments</h3><p>The network is MONAI's <code>DiffusionModelUNet</code> (<a href="https://github.com/Project-MONAI/MONAI">MONAI</a>, Apache 2.0). The models were trained on the <a href="https://www.synapse.org/Synapse:syn51156910/wiki/621282">BraTS 2023</a> and <a href="https://brain-development.org/ixi-dataset/">IXI</a> data; we thank the BraTS organisers, the IXI team and the data contributors. Please also cite the BraTS challenge papers when using the BraTS data.</p></section>
+<section class="section container narrow page-section small-section" id="contact"><h3>Contact</h3><p>For questions or collaboration, please open an <a href="https://github.com/genmilab/PRIMED/issues">issue</a> or reach out to <a href="https://github.com/adinathdukre">Adinath Madhavrao Dukre</a>.</p></section>
+<section class="section container narrow page-section small-section" id="license"><h3>License</h3><p>The code and model weights are released under CC BY-NC 4.0 (<a href="https://github.com/genmilab/PRIMED/tree/main/LICENSE">LICENSE</a>), for non-commercial use.</p>
+<div class="callout callout-important"><strong>Important</strong><p>PRIMED is intended for research only. It is not validated for clinical use and must not inform any diagnostic or treatment decision.</p></div></section>
 </main>
 <footer class="site-footer"><div class="container">
 <a class="lab-footer" href="https://github.com/genmilab" aria-label="GenMI-Lab on GitHub">

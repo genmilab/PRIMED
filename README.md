@@ -11,12 +11,13 @@ style="margin-bottom:-10px; display:block;" />
 </a>
 
 [![WACV 2027](https://img.shields.io/badge/WACV-2027-8C1B13?style=for-the-badge)](#overview)
+[![Project Page](https://img.shields.io/badge/Project-Page-147B82?style=for-the-badge&logo=googlechrome&logoColor=white)](https://genmilab.github.io/PRIMED/)
 [![Weights](https://img.shields.io/badge/HF-Weights-AECBFA?style=for-the-badge&logo=huggingface&logoColor=FFCC00&labelColor=grey)](https://huggingface.co/adidukre/PRIMED)
 [![Data](https://img.shields.io/badge/Data-BraTS_2023_|_IXI-1F6FEB?style=for-the-badge)](#️-data)
 [![License](https://img.shields.io/badge/License-CC_BY--NC_4.0-green?style=for-the-badge)](LICENSE)
 [![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FPRIMED&label=Views&countColor=%23147b82&style=for-the-badge)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fadinathdukre%2FPRIMED)
 
-<h3>🤗 <a href="https://huggingface.co/adidukre/PRIMED">Weights</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; 🏆 <a href="#-results">Results</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a> &nbsp;|&nbsp; 🏋️ <a href="#️-training">Training</a></h3>
+<h3>🌐 <a href="https://genmilab.github.io/PRIMED/">Project Page</a> &nbsp;|&nbsp; 🤗 <a href="https://huggingface.co/adidukre/PRIMED">Weights</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; 🏆 <a href="#-results">Results</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a> &nbsp;|&nbsp; 🏋️ <a href="#️-training">Training</a></h3>
 
 **[Atharva Atul Rege](https://github.com/Atharva-Rege)<sup>2&#42;</sup>, [Adinath Madhavrao Dukre](https://github.com/adinathdukre)<sup>1&#42;</sup>, Imran Razzak<sup>1</sup>**
 

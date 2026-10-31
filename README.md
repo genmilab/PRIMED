@@ -57,7 +57,6 @@ Official code for **PRIMED** (**PR**ior-**I**nformed **M**issing-modality synthe
 - [🏋️ Training](#️-training)
 - [🧪 Tests](#-tests)
 - [🗂️ Repository Structure](#️-repository-structure)
-- [⚠️ Limitations](#️-limitations)
 - [📚 Acknowledgments](#-acknowledgments)
 - [📨 Contact](#-contact)
 - [📜 License](#-license)
@@ -349,13 +348,6 @@ PRIMED/
 ├── tests/                # unit tests (pytest)
 └── assets/               # README figures
 ```
-
-## ⚠️ Limitations
-
-- A synthesised T1c is a conditional mean: it cannot recover contrast enhancement that the acquired contrasts do not reveal, and it may show enhancement that is not there. It should not replace an acquired post-contrast scan where enhancement matters for diagnosis.
-- Whether a synthetic substitute helps a downstream model depends on the target and on the model (Sec. 4.5 of the paper). Validate it against the model that will consume it.
-- The models assume co-registered inputs on the BraTS grid. For inputs that may be misregistered or acquired with thick slices, use `primed_brats_robust.safetensors`.
-- The models were trained on BraTS and IXI data only.
 
 ## 📚 Acknowledgments
 

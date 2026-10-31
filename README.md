@@ -18,10 +18,11 @@ style="margin-bottom:-10px; display:block;" />
 
 <h3>🤗 <a href="https://huggingface.co/adidukre/PRIMED">Weights</a> &nbsp;|&nbsp; 🧠 <a href="#-method">Method</a> &nbsp;|&nbsp; 🏆 <a href="#-results">Results</a> &nbsp;|&nbsp; ⚡ <a href="#-inference">Inference</a> &nbsp;|&nbsp; 🏋️ <a href="#️-training">Training</a></h3>
 
-**[Atharva Atul Rege](https://github.com/Atharva-Rege)<sup>2</sup>, [Adinath Madhavrao Dukre](https://github.com/adinathdukre)<sup>1</sup>, Imran Razzak<sup>1</sup>**
+**[Atharva Atul Rege](https://github.com/Atharva-Rege)<sup>2&#42;</sup>, [Adinath Madhavrao Dukre](https://github.com/adinathdukre)<sup>1&#42;</sup>, Imran Razzak<sup>1</sup>**
 
 <sup>1</sup>Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, UAE &nbsp;
-<sup>2</sup>National Institute of Technology Karnataka, Surathkal, India
+<sup>2</sup>National Institute of Technology Karnataka, Surathkal, India &nbsp;
+<sup>&#42;</sup>Equal first authors
 
 <img src="https://raw.githubusercontent.com/genmilab/VGS-Decoding/main/docs/assets/genmilab-logo.png" alt="GenMI Lab" height="60"/>
 
